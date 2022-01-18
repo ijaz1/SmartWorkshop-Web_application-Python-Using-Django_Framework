@@ -1,0 +1,53 @@
+{% extends 'master3.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container px-4 py-5">
+    <form class="row g-3" action="{% url 'saveeditedpro' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            {% if prod.image %}
+            <img src="{{ pro.image.url }}" alt="image here" class="prod-size">
+            {% endif %}
+            <label for="" class="form-label">Image</label>
+            <input type="file" name="image" class="form-control">
+        </div>
+
+        <div class="col-md-6">
+            <label for="" class="form-label">Name</label>
+            <input type="text" value="{{geteditvaluepro.name}}" name="productname" class="form-control" id="Place">
+        </div>
+        <div class="col-12">
+            <label for="" class="form-label">Price</label>
+            <input type="text" name="productprice" value="{{geteditvaluepro.price}}" class="form-control"
+                id="inputAddress" placeholder="Contact">
+        </div>
+        <select class="form-select" aria-label="Default select example" name="status">
+            <option selected value="Available">Available</option>
+            <option value="Out off Stock">Out off Stock</option>
+            <option value="Limitted stocks Only">Limitted stocks Only</option>
+        </select>
+        <input type="text" name="proeditid" value="{{geteditvaluepro.id}}" hidden>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
+
+
+<!-- <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script> -->
+
+{% endblock %}

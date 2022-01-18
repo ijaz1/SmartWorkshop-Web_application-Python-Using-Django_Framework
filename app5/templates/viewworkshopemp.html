@@ -1,0 +1,160 @@
+{% extends "master3.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Workshop Details</h2>
+    <table class="table table-dark table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Workshop Name</th>
+                <th scope="col">Place</th>
+                <th scope="col">Contact</th>
+                <th scope="col">E-mail</th>
+                <th>Password</th>
+                <th>Edit/Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+<script>
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{ csrf_token }}' }
+    })
+    function fnloaddataemp() {
+        $.ajax({
+            url: '{% url "loademp" %}',
+            type: 'GET',
+            success: function (response) {
+                
+                for (i = 0; i < response.data.length; i++) {
+                    $('table').append("<tr><td>" + response.data[i].id + "</td><td>" + response.data[i].name + "</td><td>" + response.data[i].place + "</td><td>" + response.data[i].phone + "</td><td>" + response.data[i].email + "</td><td>" + response.data[i].password + "</td><td><button onclick='fnViewWorkshopemp("+response.data[i].id+")' data-bs-toggle='modal' data-bs-target='#editworkshop' style='background-color: dodgerblue; color: white; border-radius: 50px;'><i class='far fa-edit'></i></button></td></tr>")
+                }
+            }
+        })
+    }
+    function fnViewWorkshopemp(id){
+        $.ajax({
+            url: '{% url "viewworkshopsemp" %}',
+            type: 'POST',
+            data:{
+                user_id:id
+            },
+            success:function(response){
+                $('#wname').val(response.wdata[0].wname)
+                $('#wplace').val(response.wdata[0].wplace)
+                $('#wphone').val(response.wdata[0].wphone)
+                $('#wemail').val(response.wdata[0].wemail)
+                $('#wpassword').val(response.wdata[0].wpassword)
+                $('#wsid').val(response.wdata[0].id)
+            }
+        })
+    }
+    function fnsaveworkshopemp(){
+        console.log()
+        $.ajax({
+            url:'{% url "saveworkshopemp" %}',
+            type:'POST',
+            data:{
+                wname1:$('#wname').val(),
+                wplace1:$('#wplace').val(),
+                wphone1:$('#wphone').val(),
+                wemail1:$('#wemail').val(),
+                wpassword1:$('#wpassword').val(),
+                wid:$('#wsid').val()
+            },
+            success:function(response){
+                alert(response.msg)
+            }
+        })
+    }
+    function fndeleteworkshopemp(){
+        console.log($('#wsid').val())
+        $.ajax({
+            url:'{% url "deleteworkshopemp" %}',
+            type:'POST',
+            data:{
+                wid11:$('#wsid').val()
+            },
+            success:function(response){
+                alert(response.delmsg)
+            }
+        })
+    }
+</script>
+
+
+    <!-- Add Workshop -->
+
+    <div class="modal fade" id="editworkshop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-5 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <h2 class="fw-bold mb-0">Add Workshop</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+                <div class="modal-body p-4 pt-0">
+                    <form class="row g-2">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-1">
+                                <input type="text" class="form-control rounded-1" name="workshopname" id="wname"
+                                    placeholder="FIRST NAME" required />
+                                <label for="floatingInput">WORKSHOP NAME</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-1">
+                                <input type="text" class="form-control rounded-4" id="wplace" name="workshopplace"
+                                    placeholder="LAST NAME" required />
+                                <label for="floatingInput">PLACE</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-floating mb-1">
+                                <input type="text" class="form-control rounded-4" id="wphone" name="phonenumber"
+                                    placeholder="PHONE NUMBER" required />
+                                <label for="floatingInput">PHONE NUMBER</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-floating mb-1">
+                                <input type="email" class="form-control rounded-4" id="wemail" placeholder="email"
+                                    name="workshopemail" />
+                                <label for="floatingInput">EMAIL</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-floating mb-1">
+                                <input type="password" class="form-control rounded-4" id="wpassword"
+                                    placeholder="password" name="workshoppassword" />
+                                    <input type="text" id="wsid" hidden>
+                                <label for="floatingInput">PASSWORD</label>
+                            </div>
+                        </div>
+                        <div class="d-inline-flex">
+                            <button class="w-50 mb-2 btn btn-lg rounded-pill fs-6 btn-sm    btn-success" onclick="fnsaveworkshopemp()" type="button">
+                                UPDATE
+                            </button>
+                            <button class="w-50 mb-2 btn btn-lg rounded-pill fs-6 btn-sm mx-3   btn-danger" onclick="fndeleteworkshopemp()" type="button">
+                                DELETE
+                            </button>
+                            <hr class="my-4" /> 
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

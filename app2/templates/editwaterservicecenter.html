@@ -1,0 +1,37 @@
+{% extends 'master.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container px-4 py-5">
+    <form class="row g-3" action="{% url 'saveeditwaterservice' %}" method="POST">
+        {% csrf_token %}
+        <div class="col-md-6">
+            <label for="" class="form-label">Shop Name</label>
+            <input type="text" value="{{geteditvalue.name}}" name="wsname" class="form-control" id="Shop Name">
+        </div>
+        <div class="col-md-6">
+            <label for="" class="form-label">Place</label>
+            <input type="text" value="{{geteditvalue.place}}" name="wsplace" class="form-control" id="Place">
+        </div>
+        <div class="col-12">
+            <label for="" class="form-label">Contact</label>
+            <input type="text" name="wsnumber" value="{{geteditvalue.phonenumber}}" class="form-control"
+                id="inputAddress" placeholder="Contact">
+        </div>
+        <div class="col-12">
+            <label for="" class="form-label">E-mail</label>
+            <input type="email" name="wsemail" value="{{geteditvalue.email}}" class="form-control" id="inputAddress2"
+                placeholder="E-mail">
+        </div>
+        <div class="col-md-6">
+            <label for="inputCity" class="form-label">Password</label>
+            <input type="text" name="wspassword" value="{{geteditvalue.password}}" class="form-control" id="inputCity">
+            <input type="text" name="waterserviceid" value="{{geteditvalue.id}}">
+        </div>
+        <div class="col-12">
+           <button type="submit"  class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

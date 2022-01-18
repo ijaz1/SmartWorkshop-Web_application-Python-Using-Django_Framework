@@ -1,0 +1,40 @@
+{% extends "master3.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Terminated Workshop</h2>
+    <table class="table table-dark table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Photo</td>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in viewcustfeed %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.photo}}</td>
+                <td><a style="color: red;" href="{% url 'custdeletefeedback' delid=i.id %}"><i class="fas fa-trash-alt"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    msgg=('{% if messages %} {% for message in messages %} {{message}} {% endfor %} {% endif %}')
+    if (msgg==''){
+        console.log('hm')
+    }
+    else{
+        alert(msgg)
+    }
+</script>
+
+
+
+
+{% endblock %}

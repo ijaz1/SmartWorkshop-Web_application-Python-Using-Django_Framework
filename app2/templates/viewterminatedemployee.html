@@ -1,0 +1,39 @@
+{% extends "master.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Terminated Employees</h2>
+    <table class="table table-dark table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Employee Place</th>
+                <th scope="col">Phone number</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in delempshow %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.employeefullname}}</td>
+                <td>{{i.employeeplace}}</td>
+                <td>{{i.employeephonenumber}}</td>
+                <td>{{i.employeeemail}}</td>
+                <td>{{i.employeepassword}}</td>
+                <td>{{i.salary}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+{% endblock %}

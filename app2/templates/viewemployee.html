@@ -1,0 +1,170 @@
+{% extends "master.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Employees Details</h2>
+    <table class="table table-dark table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Employee Place</th>
+                <th scope="col">Phone number</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th>Salary</th>
+                <th>Edit/Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{ csrf_token }}' }
+    })
+    function fnloaddata() {
+        $.ajax({
+            url: '{% url "loadempadmin" %}',
+            type: 'GET',
+            success: function (response) {
+                console.log('yeah')
+                for (i = 0; i < response.empdata.length; i++) {
+                    $('table').append("<tr><td>" + response.empdata[i].id + "</td><td>" + response.empdata[i].name + "</td><td>" + response.empdata[i].place + "</td><td>" + response.empdata[i].phone + "</td><td>" + response.empdata[i].email + "</td><td>" + response.empdata[i].password + "</td><td>" + response.empdata[i].salary + "</td><td><button onclick='fnViewEmp(" + response.empdata[i].id + ")' data-bs-toggle='modal' data-bs-target='#editemployee' style='background-color: dodgerblue; color: white; border-radius: 50px;'><i class='far fa-edit'></i></button></td></tr>")
+                }
+            }
+        })
+    }
+    function fnViewEmp(id) {
+        $.ajax({
+            url: '{% url "viewemployees" %}',
+            type: 'POST',
+            data: {
+                emp_id: id
+            },
+            success: function (response) {
+                $('#ename').val(response.edata[0].ename)
+                $('#eplace').val(response.edata[0].eplace)
+                $('#ephone').val(response.edata[0].ephone)
+                $('#eemail').val(response.edata[0].eemail)
+                $('#epassword').val(response.edata[0].epassword)
+                $('#salary').val(response.edata[0].salary)
+                $('#emid').val(response.edata[0].id)
+            }
+        })
+    }
+    function fnsaveemp() {
+        console.log()
+        $.ajax({
+            url: '{% url "saveemp" %}',
+            type: 'POST',
+            data: {
+                ename1: $('#ename').val(),
+                eplace1: $('#eplace').val(),
+                ephone1: $('#ephone').val(),
+                eemail1: $('#eemail').val(),
+                epassword1: $('#epassword').val(),
+                esalary1: $('#salary').val(),
+                eid: $('#emid').val()
+            },
+            success: function (response) {
+                alert(response.msg)
+            }
+        })
+    }
+    function fndeleteemp() {
+        $.ajax({
+            url: '{% url "deleteemp" %}',
+            type: 'POST',
+            data: {
+                eid1: $('#emid').val()
+            },
+            success: function (response) {
+                alert(response.delmsg)
+            }
+        })
+    }
+</script>
+
+<!-- add employee -->
+
+<div class="modal fade" id="editemployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-5 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h2 class="fw-bold mb-0">Edit Employees</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+            <div class="modal-body p-4 pt-0">
+                <form class="row g-2">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-1" name="employeefullname" id="ename"
+                                placeholder="FULL NAME" required />
+                            <label for="floatingInput">Employee Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-4" name="employeeplace" id="eplace"
+                                placeholder="PLACE" required />
+                            <label for="floatingInput">PLACE</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-4" name="employeephonenumber"
+                                id="ephone" placeholder="PHONE NUMBER" required />
+                            <label for="floatingInput">PHONE NUMBER</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input type="email" class="form-control rounded-4" name="employeeemail" id="eemail"
+                                placeholder="email" />
+                            <label for="floatingInput">EMAIL</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input type="password" class="form-control rounded-4" name="employeepassword"
+                                id="epassword" placeholder="Password" />
+                            <label for="floatingInput">Password</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-4" name="salary" id="salary"
+                                placeholder="SALARY" />
+                            <label for="floatingInput">Salary</label>
+                        </div>
+                    </div>
+                    <input type="text" name="" id="emid" hidden>
+
+                    <div class="d-inline-flex">
+                        <button class="w-50 mb-2 btn btn-lg rounded-pill fs-6 btn-sm    btn-success" onclick="fnsaveemp()" type="button">
+                            UPDATE
+                        </button>
+                        <button class="w-50 mb-2 btn btn-lg rounded-pill fs-6 btn-sm mx-3   btn-danger" onclick="fndeleteemp()" type="button">
+                            DELETE
+                        </button>
+                        <hr class="my-4" /> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

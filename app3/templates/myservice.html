@@ -1,0 +1,123 @@
+{% extends "master1.html" %}
+{% block content %}
+{% load static %}
+
+
+<style>
+  @if $enable-transitions {
+    @keyframes progress-bar-stripes {
+      0% {
+        background-position-x: $progress-height;
+      }
+    }
+  }
+</style>
+
+
+
+<div class="container px-4 py-5" id="custom-cards">
+  <h2 class="pb-2 border-bottom">{{obdetails.CustomerName}}</h2>
+  <table class="table table-dark table-borderless">
+    <thead>
+      <tr>
+        <th scope="col">Brand Name</th>
+        <th scope="col">Model Name</th>
+        <th scope="col">Manufactured Year</th>
+        <th scope="col">Purpose</th>
+        <th scope="col">Contact Number</th>
+        <th scope="col">Other Complaints</th>
+        <th scope="col">Address</th>
+        <th scope="col">Zip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <td>{{obdetails.BrandName}}</td>
+      <td>{{obdetails.ModelName}}</td>
+      <td>{{obdetails.ManufacturedYear}}</td>
+      <td>{{obdetails.Purpose}}</td>
+      <td>{{obdetails.Contact}}</td>
+      <td>{{obdetails.OtherComplaints}}</td>
+      <td>{{obdetails.Address}}</td>
+      <td>{{obdetails.zip}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <input type="text" id="custid" value="{{obdetails.id}}" hidden>
+
+  <!-- View Expected -->
+
+  <table class="table table-dark table-borderless mt-5" id="extable">
+    <thead>
+      <tr>
+        <th scope="col">Estimated Amount</th>
+        <th scope="col">Expected Starting Time</th>
+        <th scope="col">Expected Ending Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="pb-2 border-bottom">Car Live Status</h2>
+
+  <div class="progress h-25">
+    <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar"
+      style="width: 1%;height: 100px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+
+  </div>
+  <!-- live updations -->
+  <table class="table table-dark table-borderless mt-5" id="livevalue">
+    <thead>
+      <tr>
+        <th scope="col">LIVE UPDATIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+
+  <h2 class="p-5">Finished Work List</h2>
+
+  <table class="table table-dark table-borderless" id="fw">
+    <thead>
+      <tr>
+        <th scope="col">Work</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Time Taken</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+<script>
+  $.ajaxSetup({
+    headers: { "X-CSRFToken": '{{csrf_token}}' }
+  })
+  function fnloadclt() {
+    $.ajax({
+      url: '{% url "loadclt" %}',
+      type: 'GET',
+      data: {
+        custid: $('#custid').val(),
+      },
+      success: function (response) {
+        $('.tr1').remove()
+        $('#extable').append("<tr class='tr1'><td>" + response.expectdata[0].estimate + "</td><td>" + response.expectdata[0].st + "</td><td>" + response.expectdata[0].et + "</td></tr>")
+        $('#livevalue').append("<tr class='tr1'><td>" + response.livevalue[0].name + "</td></tr>")
+        for (i = 0; i < response.finishedWork.length; i++) {
+          $('#fw').append("<tr class='tr1'><td>" + response.finishedWork[i].FinishedWork + "</td><td>" + response.finishedWork[i].ProductName + "</td><td>" + response.finishedWork[i].TimeTaken + "</td><td>" + response.finishedWork[i].Price + "</td></tr>")
+        }
+      }
+    })
+  }
+</script>
+
+
+
+
+{% endblock %}

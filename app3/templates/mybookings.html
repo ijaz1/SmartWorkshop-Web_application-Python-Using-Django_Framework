@@ -1,0 +1,58 @@
+{% extends "master1.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="container px-4 py-5" id="custom-cards">
+  <h2 class="pb-2 border-bottom">Full Service Bookings</h2>
+  <table class="table table-dark table-borderless">
+    <thead>
+      <tr>
+        <th scope="col">Car Name</th>
+        <th scope="col">Purpose</th>
+        <th scope="col">Date</th>
+        <th scope="col">Service Details</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in viewcust %}
+      <tr>
+        <td>{{i.BrandName}}&nbsp;&nbsp;{{i.ModelName}}</td>
+        <td>{{i.Purpose}}</td>
+        <td>{{i.DateAndTime}}</td>
+        <td><a href="{% url 'myservice' custid=i.id %}" style="text-decoration: none;">Details</a>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h2 class="pb-2 border-bottom">Water Service Bookings</h2>
+  <table class="table table-dark table-borderless">
+    <thead>
+      <tr>
+        <th scope="col">Vehicle Type</th>
+        <th scope="col">Service Type</th>
+        <th scope="col">Date</th>
+        <th scope="col">Service Details</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in viewwater %}
+      <tr>
+        <td>{{i.vehicle}}&nbsp;&nbsp;{{i.cartype}}</td>
+        <td>{{i.servtype}}</td>
+        <td>{{i.DateAndTime}}</td>
+        <td><a href="{% url 'mywaterservice' custwid=i.id %}" style="text-decoration: none;">Details</a>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+
+{% endblock %}

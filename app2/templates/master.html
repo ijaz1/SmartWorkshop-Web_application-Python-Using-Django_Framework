@@ -1,0 +1,352 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <title>admin</title>
+</head>
+
+<body onload="fnloaddata()">
+  <header class="p-0 mb- border-bottom">
+    <div class="container-fluid">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+            <use xlink:href="#bootstrap" />
+          </svg>
+        </a>
+
+        <a href=""><img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="200px"
+            style="margin-top: -65px;margin-bottom: -50px;"></a>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{% url 'overview' %}" class="nav-link px-2 link-dark">Overview</a></li>
+          <li>
+            <div class="dropdown text-end p-2">
+              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Employees
+              </a>
+              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="{% url 'viewemployee' %}">View Employees</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addemployee" href="">Add
+                    Employee</a></li>
+                <li><a class="dropdown-item" href="{% url 'viewterminatedemployee' %}">View Terminated Employees</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown text-end p-2">
+              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Customer
+              </a>
+              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="{% url 'viewcustomeradmin' %}">View Customers</a></li>
+                <li><a class="dropdown-item" href="{% url 'customerfeedback' %}">View Feedback</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown text-end p-2">
+              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Workshops
+              </a>
+              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="{% url 'viewworkshop' %}">Full Service Center</a></li>
+                <li><a class="dropdown-item" href="{% url 'viewwaterservice' %}">Water Service Center</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addworkshop"
+                    href="#addworkshop">Add Full Service Center</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addwaterservice"
+                    href="#addwaterservice">Add Water Service Center</a></li>
+                <li><a class="dropdown-item" href="{% url 'viewTerminatedWorkshop' %}">View Terminated Full Service Center</a></li>
+                <li><a class="dropdown-item" href="{% url 'terminatedwaterservice' %}">View Terminated Water Service Center</a></li>
+                <li><a class="dropdown-item" href="{% url 'viewpayment' %}">View Payments</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="{% url 'fnlogoutadmin' %}">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+  {% block content %}
+  {% endblock %}
+  <script>
+    msgg = ('{% if messages %} {% for message in messages %} {{message}} {% endfor %} {% endif %}')
+    if (msgg == '') {
+      console.log('hm')
+    }
+    else {
+      alert(msgg)
+    }
+  </script>
+  <div class="container-fluid">
+    <div class="row">
+      <footer class="py-1 my-1">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item">
+            <a href="overview" class="nav-link text-muted">HOME</a>
+          </li>
+        </ul>
+        <p class="text-center ">&copy; 2021 Company, Inc</p>
+      </footer>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script>
+    msg = ('{{msgaddemp}}')
+    if (msg == '') {
+      console.log('hi')
+    }
+    else {
+      alert(msg)
+    }
+  </script>
+</body>
+
+</html>
+
+<!-- Add Workshop -->
+
+<div class="modal fade" id="addworkshop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h2 class="fw-bold mb-0">Add Workshop</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+      <div class="modal-body p-4 pt-0">
+        <form class="row g-2" action="{% url 'addworkshop' %}" method="POST">
+          {% csrf_token %}
+          <div class="col-md-6">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control rounded-1" name="workshopname" id="floatingInput"
+                placeholder="FIRST NAME" required />
+              <label for="floatingInput">WORKSHOP NAME</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control rounded-4" id="floatingInput" name="workshopplace"
+                placeholder="LAST NAME" required />
+              <label for="floatingInput">PLACE</label>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control rounded-4" id="floatingInput" name="phonenumber"
+                placeholder="PHONE NUMBER" required />
+              <label for="floatingInput">PHONE NUMBER</label>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-floating mb-1">
+              <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="email"
+                name="workshopemail" />
+              <label for="floatingInput">EMAIL</label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating mb-1">
+              <input type="password" class="form-control rounded-4" id="floatingInput" placeholder="password"
+                name="workshoppassword" />
+              <label for="floatingInput">PASSWORD</label>
+            </div>
+          </div>
+
+          <button class="w-100 mb-2 btn btn-lg rounded-2 btn-warning" type="submit">
+            Add
+          </button>
+
+          <hr class="my-4" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- add feedback -->
+
+<div class="modal fade" id="addfeedback" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h2 class="fw-bold mb-0">Add Feedback</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+      <div class="modal-body p-4 pt-0">
+        <form class="row g-2">
+          <div class="input-group mb-3">
+            <input type="file" class="form-control" id="inputGroupFile02">
+            <label class="input-group-text" for="inputGroupFile02">Upload</label>
+          </div>
+          <button class="w-100 mb-2 btn btn-lg rounded-2 btn-warning" type="submit">
+            Add
+          </button>
+
+          <hr class="my-4" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- add employee -->
+
+<div class="modal fade" id="addemployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h2 class="fw-bold mb-0">Add Employees</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+      <div class="modal-body p-4 pt-0">
+        <form class="row g-2" action="{% url 'addemp' %}" method="POST">
+          {% csrf_token %}
+          <div class="col-md-6">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control rounded-1" name="employeefullname" id="floatingInput"
+                placeholder="FULL NAME" required />
+              <label for="floatingInput">Employee Name</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control rounded-4" name="employeeplace" id="floatingInput"
+                placeholder="PLACE" required />
+              <label for="floatingInput">PLACE</label>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control rounded-4" name="employeephonenumber" id="floatingInput"
+                placeholder="PHONE NUMBER" required />
+              <label for="floatingInput">PHONE NUMBER</label>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-floating mb-1">
+              <input type="email" class="form-control rounded-4" name="employeeemail" id="floatingInput"
+                placeholder="email" />
+              <label for="floatingInput">EMAIL</label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating mb-1">
+              <input type="password" class="form-control rounded-4" name="employeepassword" id="floatingInput"
+                placeholder="Password" />
+              <label for="floatingInput">Password</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control rounded-4" name="salary" id="floatingInput" placeholder="SALARY" />
+              <label for="floatingInput">Salary</label>
+            </div>
+          </div>
+
+          <button class="w-100 mb-2 btn btn-lg rounded-2 btn-warning" type="submit">
+            Add
+          </button>
+
+          <hr class="my-4" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Water Service Center -->
+
+<div class="modal fade" id="addwaterservice" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h2 class="fw-bold mb-0">Add Water Service Center</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+      <div class="modal-body p-4 pt-0">
+        <form class="row g-2" action="{% url 'addwaterservice' %}" method="POST">
+          {% csrf_token %}
+          <div class="col-md-6">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control rounded-1" name="watername" id="floatingInput"
+                placeholder="SHOPE NAME" required />
+              <label for="floatingInput">SHOPE NAME</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control rounded-4" id="floatingInput" name="waterplace" placeholder="PLACE"
+                required />
+              <label for="floatingInput">PLACE</label>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control rounded-4" id="floatingInput" name="waternumber"
+                placeholder="PHONE NUMBER" required />
+              <label for="floatingInput">PHONE NUMBER</label>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-floating mb-1">
+              <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="email"
+                name="wateremail" />
+              <label for="floatingInput">EMAIL</label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating mb-1">
+              <input type="password" class="form-control rounded-4" id="floatingInput" placeholder="password"
+                name="waterpassword" />
+              <label for="floatingInput">PASSWORD</label>
+            </div>
+          </div>
+
+          <button class="w-100 mb-2 btn btn-lg rounded-2 btn-warning" type="submit">
+            Add
+          </button>
+
+          <hr class="my-4" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

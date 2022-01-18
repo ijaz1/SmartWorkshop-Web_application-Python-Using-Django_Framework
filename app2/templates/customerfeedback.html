@@ -1,0 +1,50 @@
+{% extends "master.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Customer Feedback</h2>
+    <table class="table table-dark table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Car Name</th>
+                <th scope="col">Work</th>
+                <th scope="col">Complaint</th>
+                <th scope="col">Feedback</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Fayis</td>
+                <td>Benz</td>
+                <td>Full service</td>
+                <td>nothing</td>
+                <td>good</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Shabeeb</td>
+                <td>Toyota</td>
+                <td>Full service</td>
+                <td>break pad broken</td>
+                <td>good</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Niyaz</td>
+                <td>Jaguar</td>
+                <td>Tyre Change</td>
+                <td>Nothing</td>
+                <td>Exellent</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}

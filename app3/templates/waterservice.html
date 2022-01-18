@@ -1,0 +1,71 @@
+{% extends "master1.html" %}
+{% block content %}
+{% load static %}
+
+<form class="row g-3" action="{% url 'savewatrbook' %}" method="POST">
+    {% csrf_token %}
+    <div class="p-5">
+        <center>
+            <h3 class="pb-5">Booking Form</h3>
+        </center>
+        <div class="d-flex">
+            <div class="col p-2">
+                <label for="inputZip" class="form-label">Car/Bike</label>
+                <select class="form-select" name="vehicle" aria-label="Default select example">
+                    <option selected value="car">Car</option>
+                    <option value="bike">Bike</option>
+                </select>
+            </div>
+            <div class="col p-2">
+                <label for="inputZip" class="form-label">Select Type</label>
+                <select class="form-select" name="cartype" aria-label="Default select example">
+                    <option value="bike">Bike</option>
+                    <option value="hatchback">Hatchback</option>
+                    <option value="sedan">Sedan</option>
+                    <option value="suv">Suv</option>
+                    <option value="muv">Muv</option>               </select>
+            </div>
+            <div class="col p-2">
+                <label for="inputZip" class="form-label">Service Type</label>
+                <select class="form-select" name="servtype" aria-label="Default select example">
+                    <option selected value="Home Service">Home Service</option>
+                    <option value="Shop Service">Shop Service</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="" class="form-label">Contact Number</label>
+            <input type="text" name="contactno" class="form-control" id="" placeholder="Ennter valid phone number">
+        </div>
+        <div class="col-md-12">
+            <label for="inputCity" class="form-label">Any Suggestion</label>
+            <input type="text" class="form-control" id="" name="ocomplaint"
+                placeholder="you can mention any other things">
+        </div>
+        <div id="adrs">
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Address</label>
+                <input type="text" name="address" class="form-control" id="inputAddress" placeholder="1234 Main St">
+            </div>
+            <div class="col-md-2">
+                <label for="inputZip" class="form-label">Zip</label>
+                <input type="text" name="zip" class="form-control" id="inputZip">
+            </div>
+        </div>
+
+        <div class="col-md-6 p-2">
+            <label for="inputZip" class="form-label">Select A Workshop</label>
+            <select class="form-select" name="watershop" aria-label="Default select example">
+                {% for i in waterserv %}
+                <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-success">Book</button>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}

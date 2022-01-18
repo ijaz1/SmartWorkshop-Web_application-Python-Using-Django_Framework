@@ -1,0 +1,118 @@
+{% extends 'master3.html' %}
+{% block content %}
+{% load static %}
+
+
+<!-- Add advertisement -->
+<div class="container p-5" id="custom-cards">
+    <h4 class="border-bottom p-5">Add Advertisement</h4>
+    <form class="row g-3" action="{% url 'addadverticement' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">PHOTO</label>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" name="photo">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">Main Head</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="mainhead">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">first sub head</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="fsubhead">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">second sub head</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="ssubhead">
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Upload</button>
+    </form>
+</div>
+
+<!-- About us -->
+
+<div class="container p-5">
+    <h4 class="border-bottom p-5">About us</h4>
+    <form action="{% url 'editabout' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-floating input-group">
+            <textarea class="form-control" placeholder="" value="" id=""
+                name="abouttextarea">{{showabout.abouttext}}</textarea>
+            <label for="floatingTextarea">Text</label>
+            <button type="submit" class="btn btn-warning">Edit</button>
+        </div>
+    </form>
+</div>
+
+<!-- edit contact us -->
+
+<div class="container">
+    <h4 class="border-bottom p-5">Contact us</h4>
+    <form action="{% url 'editcontactus' %}" method="POST">
+        {% csrf_token %}
+        <div class="d-flex p-2">
+
+            <div class="col-md-3 px-3">
+                <label for="inputEmail4" class="form-label">Whatsapp number</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="whatsapp"
+                        aria-label="Text input with segmented dropdown button" value="{{showcontact.whatsapp}}">
+                </div>
+            </div>
+            <div class="col-md-3 px-3">
+                <label for="inputEmail4" class="form-label">email Address</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="email"
+                        aria-label="Text input with segmented dropdown button" value="{{showcontact.email}}">
+                </div>
+            </div>
+            <div class="col-md-3 px-3">
+                <label for="inputEmail4" class="form-label">phone number</label>
+                <div class="input-group mb-3">
+                    <input type="text" name="phone" class="form-control"
+                        aria-label="Text input with segmented dropdown button" value="{{showcontact.phone}}">
+                </div>
+            </div>
+
+        </div>
+        <button class="btn btn-warning" type="submit">save changes</button>
+    </form>
+   
+</div>
+
+<!-- Add feedback -->
+
+<form action="{% url 'custfeedback' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container p-5">
+        <h4 class="border-bottom p-5">Add Feedback</h4>
+        <div class="form-floating input-group">
+            <label for="inputEmail4" class="form-label">Photo</label>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" name="custfeedphoto" id="inputGroupFile02">
+                <button type="submit" class="input-group-text btn-warning" for="inputGroupFile02">Edit</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    msgg=('{% if messages %} {% for message in messages %} {{message}} {% endfor %} {% endif %}')
+    if (msgg==''){
+        console.log('hm')
+    }
+    else{
+        alert(msgg)
+    }
+</script>
+
+
+
+{% endblock %}

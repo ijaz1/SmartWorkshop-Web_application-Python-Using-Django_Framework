@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>Employee</title>
+</head>
+
+<body>
+    <header class="p-0 mb- border-bottom">
+        <div class="container-fluid">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap" />
+                    </svg>
+                </a>
+
+                <a href=""><img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="200px"
+                        style="margin-top: -65px;margin-bottom: -50px;"></a>
+
+            </div>
+        </div>
+    </header>
+    <div class="container my-5">
+
+        <!-- Section: Block Content -->
+        <section>
+
+            <h3 class="font-weight-bold text-center dark-grey-text mb-5">RARE PRODUCTS</h3>
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <!-- Grid column -->
+                {% for i in viewpro %}
+                <div class="col-lg-4 col-md-12 mb-4">
+
+                    <!-- Card -->
+                    <div class="card card-ecommerce">
+                        <div class="view overlay">
+                            <img src="/app1/media/{{i.photo}}" class="" alt="Sample image" width="300px" height="300px">
+                            <a>
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title mb-1"><strong><a class="dark-grey-text">{{i.name}}</a></strong></h5>
+                            {% if i.stock == 'Available'%}
+                            <h4 style="color: green;">{{i.stock}}</h4>
+                            {% elif i.stock == 'Out off Stock' %}
+                            <h4 style="color: red;">{{i.stock}}</h4>
+                            {% elif i.stock == 'Limitted stocks Only' %}
+                            <h4 style="color: orange;">{{i.stock}}</h4>
+                            {% else %}
+                            {% endif %}
+                            <div class="card-footer pb-0">
+                                <div class="row mb-0">
+                                    <span class="float-left"><strong>{{i.price}}<i
+                                                class="fas fa-rupee-sign"></i></strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                {% endfor %}
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+        </section>
+        <!-- Section: Block Content -->
+
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <footer class="py-1 my-1">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-muted">HOME</a>
+                    </li>
+                </ul>
+                <p class="text-center ">&copy; 2021 Company, Inc</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

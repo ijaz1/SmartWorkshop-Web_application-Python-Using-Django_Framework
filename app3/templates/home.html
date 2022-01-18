@@ -1,0 +1,141 @@
+{% extends "master1.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Home</h2>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+                style="background-image: url('{% static 'images/w5.jpg' %}');background-repeat:no-repeat;background-size:100%;">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"></h2>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="{% static 'images/w5.jpg' %}" alt="Bootstrap" width="32" height="32"
+                                class="rounded-circle border border-white">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill" />
+                            </svg>
+                            <h6 style="color: whitesmoke; font-size: 20px; font-weight: 400; background: tomato;">Full
+                                service</h6>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3" />
+                            </svg>
+                            <a class="btn btn-warning btn-sm" href="{% url 'bookfullservice' %}">Book Now</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+                style="background-image: url('{% static 'images/water1.jpg' %}');background-repeat:no-repeat;background-size:100%">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                    </h2>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32"
+                                class="rounded-circle border border-white">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill" />
+                            </svg>
+                            <h6 style="color: whitesmoke; font-size: 20px; font-weight: 400; background: tomato;">Water
+                                Service</h6>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3" />
+                            </svg>
+                            <a href="{% url 'bookwaterserv' %}" class="btn btn-warning btn-sm">Book Now</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+                style="background-image: url('{% static 'images/pro1.jpg' %}');background-repeat:no-repeat;background-size:100%">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                    <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"></h2>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32"
+                                class="rounded-circle border border-white">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill" />
+                            </svg>
+                            <h6 style="color: whitesmoke; font-size: 20px; font-weight: 400; background: tomato;">
+                                Products</h6>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3" />
+                            </svg>
+                            <a href="product"><button class="btn-warning small rounded-3">See all</button></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="pb-2 border-bottom">Feedback</h2>
+    <center>
+
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for i in showfeedback %}
+                <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}" id="">
+                    <img src="/app1/media/{{i.photo}}" class="d-block w-50" alt="..." />
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </center>
+    <div class="row " id="abts">
+        <div class="col-lg-6 p-5">
+            <div>
+                <center>
+                    <h1>ABOUT US</h1>
+                </center>
+            </div>
+            <div class="p-5">
+                <p>{{showabt.abouttext}}<br><br><button
+                        class="abbt" data-bs-target="#contactus" data-bs-toggle="modal"
+                        style="background-color: #ff8f81;border:none;border-radius: 50px;width: 150px;height: 34px;color: aliceblue;">CONTACT
+                        US</button></p>
+            </div>
+        </div>
+        <div class="col-lg-6 h-100">
+            <img src="{% static 'images/abts.jpg' %}" alt="" width="600px">
+        </div>
+
+
+
+
+
+        {% endblock %}
+

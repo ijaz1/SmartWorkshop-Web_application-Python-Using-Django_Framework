@@ -1,0 +1,38 @@
+{% extends "master2.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="container px-4 py-5" id="custom-cards">
+  <h2 class="pb-2 border-bottom">Customers</h2>
+  <table class="table table-dark table-borderless">
+    <thead>
+      <tr>
+        <th scope="col">Customer Name</th>
+        <th scope="col">Customer E-mail</th>
+        <th scope="col">Car Name</th>
+        <th scope="col">Purpose</th>
+        <th scope="col">Work</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in viewcust %}
+      <tr>
+        <td>{{i.CustomerName}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.BrandName}}&nbsp;&nbsp;{{i.ModelName}}</td>
+        <td>{{i.Purpose}}</td>
+        <td><a href="{% url 'cust1' custid=i.id %}" style="text-decoration: none;">Details</a>
+      </tr>
+    {% endfor %}  
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+
+{% endblock %}

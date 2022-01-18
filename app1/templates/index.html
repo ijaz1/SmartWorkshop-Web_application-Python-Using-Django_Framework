@@ -1,21 +1,464 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin log in</title>
-</head>
-<body style="background-color: rgb(226, 218, 218);">
 
-    <h1 align="center" style="color: cornflowerblue;">Log In</h1>
-    <br><br><br><br><br>
-    <form action="" align="center">
-        <input type="text" placeholder="User name" style="width: 300px; height: 50px;">
-        <br><br><br>
-        <input type="password" placeholder="password" style="width: 300px; height: 50px;">
-        <br><br><br><br>
-        <input type="submit" value="Log In" style="width: 100px; height: 30px; background-color: rgb(29, 199, 66); color: white;">
-    </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMART WORKSHOP</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+</head>
+<link rel="stylesheet" href="{% static 'images/style.css' %}" />
+
+<body>
+  <div class="container-fluid" id="home" style="padding: 0px">
+    <nav class="navbar navbar-expand-lg navbar-light container" id="navbar" style="z-index: 1">
+      <div class="container-fluid" id="nav2">
+        <a class="navbar-brand" id="lo" href="#"><img class="img1" src="{% static 'images/logo1.png' %}" alt="" /></a>
+        <div class="lsbtn">
+          <button class="log" type="button" data-bs-toggle="modal" data-bs-target="#login">
+            Log In
+          </button>
+          <button class="sp" type="button" data-bs-toggle="modal" data-bs-target="#signup">
+            Sign Up
+          </button>
+          <br>
+        </div>
+        <button id="tgbt" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navtext" id="navbarSupportedContent" style="margin-right: 40px">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+            <li class="nav-item navtexts ms-4">
+              <a class="nav-link active" aria-current="page" href="#home" id="nate">HOME</a>
+            </li>
+            <li class="nav-item navtexts ms-4">
+              <a class="nav-link" href="#services" id="nate">SERVICES</a>
+            </li>
+            <li class="nav-item navtexts ms-4">
+              <a class="nav-link" href="#abts" id="nate">ABOUT US</a>
+            </li>
+
+            <li class="nav-item navtexts ms-4">
+              <a class="nav-link" data-bs-target="#contactus" data-bs-toggle="modal" href="#contactus" id="nate">CONTACT
+                US</a>
+            </li>
+            <li class="nav-item navtexts ms-4">
+              <a style="font-size: 40px; color: red;" class="p-3" href="tel:{{showcon.phone}}"><i
+                  class="fas fa-phone-square"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <script>
+      msgg = ('{% if messages %} {% for message in messages %} {{message}} {% endfor %} {% endif %}')
+      if (msgg == '') {
+        console.log('hi');
+      } else {
+        alert(msgg)
+      }
+    </script>
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner" style="margin-top: -100px">
+        {% for i in advertise %}
+        <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}" id="movpic">
+          <img src="/app1/media/{{i.photo}}" class="d-block w-100" alt="..." width="100%" />
+          <div class="carousel-caption d- d-md-" id="pdiv">
+            <h3 class="fpara">
+              {{i.fsubhead}}
+              </h 3>
+              <h1 class="fhead">{{i.mainhead}}</h1>
+              <h3 class="fpara">{{i.ssubhead}}</h3>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class="container-fluid" id="services">
+      <center>
+        <div class="row" id="movpic" style="background-color: whitesmoke">
+          <center>
+            <h1 class="bkn">BOOK NOW</h1>
+            <img src="" alt="">
+          </center>
+          <div class="col box">
+            <a href="#serv"><img class="img-fluid im33" id="im33" src="{% static 'images/w5.jpg' %}" alt=""
+                width="400px" /></a>
+            <h3 style="color: black">FULL SERVICE</h3>
+          </div>
+          <div class="col box">
+            <a href="#waterservice"><img class="img-fluid im33" id="im33" src="{% static 'images/water1.jpg' %}" alt=""
+                width="400px" /></a>
+            <h3 style="color: black">WATER SERVICE</h3>
+          </div>
+          <div class="col box">
+            <a href="{% url 'viewproductmain' %}"><img class="img-fluid im33" id="im33"
+                src="{% static 'images/acc1.jpg' %}" alt="" width="400px" /></a>
+            <h3 class="" style="color: black">ACCESSORIES</h3>
+          </div>
+        </div>
+      </center>
+    </div>
+    <div class="container-fluid">
+      <div class="row" id="movpic" style="
+            background: linear-gradient(#141e30, #243b55);
+            background-size: 100%;
+          ">
+        <div class="d-inline-flex" id="serv">
+          <div class="col-7">
+            <center>
+              <h1 class="text-justify" style="color: rgb(255, 238, 0)">
+                FULL SERVICE
+              </h1>
+
+              <p style="color: white; font-size: x-large">
+                <i style="color: rgb(255, 238, 0)" class="fas fa-angle-right"></i>&nbsp;&nbsp; We provide a full range
+                of front end mechanical
+                repairs for all makes and models of cars, no matter the cause.
+                This includes everything from struts, shocks, and tie rod ends
+                to ball joints, springs, and basically everything that is
+                included in repairing the front end of the vehicle.
+              </p>
+              <button class="bt" type="button" data-bs-toggle="modal" data-bs-target="#login">
+                BOOK NOW&nbsp;&nbsp;>>
+              </button>
+            </center>
+          </div>
+          <div class="col-5">
+            {% for i in showworkshop %}
+            <p style="color: white">
+              <i style="color: rgb(255, 238, 0)" class="fas fa-angle-right"></i>&nbsp;&nbsp;{{i.workshopname}}
+              <br />{{i.workshopplace}}
+            </p>
+            {% endfor %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row" id="set">
+        <center>
+          <h1>100% Result Guarantee</h1>
+          <p>We offer full service auto repair & maintenance</p>
+          <div class="d-inline-flex" style="padding-top: 100px">
+            <div>
+              <h1><i class="fas fa-tools"></i></h1>
+              <h3>All Car Makes</h3>
+              <p style="font-size: larger">
+                We provide a variety of repair and maintenance services for
+                all car makes and models, even for exotic and vintage ones.
+              </p>
+            </div>
+            <div class="">
+              <h1><i class="fas fa-cogs"></i></h1>
+              <h3>Variety Services</h3>
+
+              <p style="font-size: larger">
+                The main principle of our work is to offer a wide range of
+                quality car repair services and we’ve been doing it since our
+                first day.
+              </p>
+            </div>
+            <div class="">
+              <h1><i class="fas fa-phone-alt"></i></h1>
+              <h3>Quality Support</h3>
+
+              <p style="font-size: larger">
+                Car Repair Services offers quality support programs for any
+                vehicles that allow them to always stay fully functional.
+              </p>
+            </div>
+          </div>
+        </center>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row" id="movpic" style="
+            background: linear-gradient(#434343, #000000);
+            background-size: 100%;
+          ">
+        <div class="d-inline-flex" id="waterservice" style="padding-top: 200px">
+          <div class="col">
+            <center>
+              <h1 style="color: rgb(255, 238, 0)">WATER SERVICE</h1>
+
+              <p style="color: white; font-size: x-large">
+                <i style="color: rgb(255, 238, 0)" class="fas fa-angle-right"></i>&nbsp;&nbsp; We provide a full range
+                of front end mechanical
+                repairs for all makes and models of cars, no matter the cause.
+                This includes everything from struts, shocks, and tie rod ends
+                to ball joints, springs, and basically everything that is
+                included in repairing the front end of the vehicle.
+              </p>
+              <button class="bt" type="button" data-bs-toggle="modal" data-bs-target="#login">
+                BOOK NOW&nbsp;&nbsp;>>
+              </button>
+            </center>
+          </div>
+          <div class="col-5">
+          {% for i in showwater %}
+          <p style="color: white">
+            <i style="color: rgb(255, 238, 0)" class="fas fa-angle-right"></i>&nbsp;&nbsp;{{i.name}}
+            <br />{{i.place}}
+          </p>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row " id="abts">
+    <div class="col-lg-6 p-5">
+      <div>
+        <center>
+          <h1>ABOUT US</h1>
+        </center>
+      </div>
+      <div class="p-5">
+        <p>{{showabt.abouttext}}<br><br><button class="abbt" data-bs-target="#contactus" data-bs-toggle="modal"
+            style="background-color: #ff8f81;border:none;border-radius: 50px;width: 150px;height: 34px;color: aliceblue;">CONTACT
+            US</button></p>
+      </div>
+    </div>
+    <div class="col-lg-6 h-100">
+      <img src="{% static 'images/abts.jpg' %}" alt="" width="600px">
+    </div>
+    <div class="container">
+      <footer class="py-1 my-1" style="background-color: #141e30;">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item">
+            <a href="#home" style="color: white;" class="nav-link">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a href="#services" style="color: white;" class="nav-link">SERVICES</a>
+          </li>
+          <li class="nav-item">
+            <a href="#abts" style="color: white;" class="nav-link">ABOUT US</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" style="color: white;" class="nav-link" data-bs-target="#contactus"
+              data-bs-toggle="modal">CONTACT US</a>
+          </li>
+        </ul>
+        <p class="text-center " style="color: white;">&copy; 2021 Company, Inc</p>
+      </footer>
+    </div>
+
+  </div>
+  <script src="{% static 'js/script.js' %}"></script>
+  </div>
+
+
+  <!-- log in -->
+
+  <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-5 shadow">
+        <div class="modal-header p-3 pb-0 border-bottom-0">
+          <h3>LOG IN</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+        <div class="modal-body p-5 pt-0">
+          <form class="" action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+              <input type="email" name="loginemail" class="form-control rounded-4" id="floatingEmail"
+                placeholder="email" required />
+              <label for="floatingInput">ENTER YOUR EMAIL ADDRESS</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" name="loginpassword" class="form-control rounded-4" id="floatingPassword"
+                placeholder="ENTER YOUR PASSWORD" required />
+              <label for="floatingInput">ENTER YOUR PASSWORD</label>
+            </div>
+
+            <button class="w-100 btn-lg rounded-3   mb-2 btn btn-lg rounded-0 btn-warning" type="submit">
+              LOG IN
+            </button>
+            <small class="text-muted">if you don't have account just <button
+                class="btn mb-2 btn-danger btn-sm rounded-circle" type="button" data-bs-toggle="modal"
+                data-bs-target="#signup">SIGN UP</button></small>
+            <hr class="my-4" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- signup -->
+
+  <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-5 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <h2 class="fw-bold mb-0">SIGN UP</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+        <div class="modal-body p-4 pt-0">
+          <form class="row g-2" action="{% url 'signup' %}" method="POST">
+            {% csrf_token %}
+            <div class="col-md-6">
+              <div class="form-floating mb-1">
+                <input type="text" name="firstname" class="form-control rounded-1" id="floatingInput"
+                  placeholder="FIRST NAME" required />
+                <label for="floatingInput">FIRST NAME</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-1">
+                <input type="text" name="lastname" class="form-control rounded-4" id="floatingInput"
+                  placeholder="LAST NAME" required />
+                <label for="floatingInput">LAST NAME</label>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-floating mb-1">
+                <input type="text" name="phonenumber" class="form-control rounded-4" id="floatingInput"
+                  placeholder="PHONE NUMBER" required />
+                <label for="floatingInput">PHONE NUMBER</label>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-floating mb-1">
+                <input type="email" name="email" class="form-control rounded-4" id="floatingInput"
+                  placeholder="email" />
+                <label for="floatingInput">ENTER YOUR EMAIL</label>
+              </div>
+            </div>
+
+            <div class="form-floating mb-1">
+              <input type="password" name="password" class="form-control rounded-4" id="Password"
+                placeholder="ENTER YOUR PASSWORD ps" required />
+              <label for="floatingInput">ENTER YOUR PASSWORD</label>
+            </div>
+
+            <div class="form-floating mb-1">
+              <input type="password" onkeydown="pasval()" class="form-control rounded-4" id="conpassword"
+                placeholder="RE-ENTER YOUR PASSWORD" required />
+              <label for="floatingInput">RE-ENTER YOUR PASSWORD</label>
+              <p id="passame" style="color: red;"></p>
+              <p id="passam" style="color: green;"></p>
+            </div>
+
+            <button class="w-100 mb-2 btn btn-lg rounded-2 btn-warning" type="submit">
+              SIGN UP
+            </button>
+            <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+            <hr class="my-4" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div></div>
+  </div>
+  <script>
+    function pasval() {
+      pas1 = document.getElementById('Password').value
+      pas2 = document.getElementById('conpassword').value
+      if (pas1 == pas2) {
+        document.getElementById('passam').innerHTML = '**password is correct**'
+        return true
+      } else {
+        document.getElementById('passame').innerHTML = '**password is not same**'
+        return false
+      }
+    }
+  </script>
+  <!-- contact us -->
+  <form action="{% url 'main' %}" method="POST">
+    <div class="modal fade" id="contactus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">CONTACT</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-3">
+            <center>
+              <a style="font-size: 60px; color: rgb(0, 255, 170);" class="p-3"
+                href="https://wa.me/{{showcon.whatsapp}}"><i class="fab fa-whatsapp-square"></i></a>
+              <a style="font-size: 60px; color: crimson;" class="p-3" href="mailto:{{showcon.email}}"><i
+                  class="fas fa-envelope"></i></a>
+              <a style="font-size: x-large;" class="p-3" href="tel:{{showcon.phone}}"><i
+                  class="fas fa-phone-volume">{{showcon.phone}}</i></a>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js "
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p "
+    crossorigin="anonymous "></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js "
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB "
+    crossorigin="anonymous "></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js "
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13 "
+    crossorigin="anonymous "></script>
+  <script>
+    $("#nate").click(function () {
+      $("#nate").css({
+        color: "yellow",
+      });
+    });
+  </script>
 </body>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="carousel-item" id="movpic">
+  <img src="{% static 'images/bg11.jpg' %}" class="d-block w-100" alt="..." />
+  <div class="carousel-caption d- d-md-" id="pdiv">
+    <h3 class="fpara">ARE YOU BUSY TO MAINTAIN YOUR CAR..?</h3>
+    <h1 class="fhead">WE PICK YOUR CAR</h1>
+    <h3 class="fpara">WE DROP IT DOWN THERE</h3>
+  </div>
+</div>
+<div class="carousel-item" id="movpic">
+  <img src="{% static 'images/bg333.jpg' %}" class="d-block w-100" alt="..." />
+  <div class="carousel-caption d- d-md-" id="pdiv">
+    <h3 class="fpara">ARE YOU AFRAID OF DAMAGES...?</h3>
+    <h1 class="fhead">WE CARE MORE THAN YOU</h1>
+    <h3 class="fpara">IT'S OUR DUTY</h3>
+  </div>
+</div> -->

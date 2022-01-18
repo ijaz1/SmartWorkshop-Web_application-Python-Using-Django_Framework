@@ -1,0 +1,378 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>Employee</title>
+</head>
+
+<body onload="fnloaddataemp()">
+    <header class="p-0 mb- border-bottom">
+        <div class="container-fluid">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap" />
+                    </svg>
+                </a>
+
+                <a href=""><img class="logo" src="{% static 'images/logo1.png' %}" alt="" width="200px"
+                        style="margin-top: -65px;margin-bottom: -50px;"></a>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="{% url 'homeemployee' %}" class="nav-link px- link-dark">Home</a></li>
+                    <li>
+                        <div class="dropdown text-end p-2">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Edit
+                            </a>
+                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" data-bs-target="#fullservbooking" data-bs-toggle=""
+                                        href="{% url 'viewadverticehtml' %}">Edit Advertisement</a></li>
+                                <li><a class="dropdown-item" data-bs-target="#fullservbooking" data-bs-toggle=""
+                                        href="{% url 'custeditfeedback' %}">Edit Feedback</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown text-end p-2">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Customers
+                            </a>
+                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" data-bs-target="#fullservbooking" data-bs-toggle=""
+                                        href="{% url '' %}">View Customers</a></li>
+                                <li><a class="dropdown-item" data-bs-target="#waterservbooking" data-bs-toggle=""
+                                        href="{% url '' %}">View Pending Customers</a></li>
+                                <li><a class="dropdown-item" data-bs-target="#otherbooking" data-bs-toggle=""
+                                        href="{% url '' %}">View Finished Works</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="dropdown text-end p-2">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Bookings
+                            </a>
+                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" data-bs-target="#fullservbooking" data-bs-toggle=""
+                                        href="{% url 'viewadverticehtml' %}">View Bookings</a></li>
+                                <li><a class="dropdown-item" data-bs-target="#waterservbooking" data-bs-toggle=""
+                                        href="{% url '' %}">Cancelled Bookings</a></li>
+                                <li><a class="dropdown-item" data-bs-target="#otherbooking" data-bs-toggle=""
+                                        href="{% url '' %}">View booking Payments</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="dropdown text-end p-2">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Workshop
+                            </a>
+                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" data-bs-target="#fullservbooking" data-bs-toggle=""
+                                        href="{% url 'viewempworkshop' %}">View Workshop</a></li>
+                                <li><a class="dropdown-item" href="{% url 'viewwaterserviceemp' %}">Water Service
+                                        Center</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addworkshop"
+                                        href="#addworkshop">Add Workshop</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addwaterserviceemp"
+                                        href="#addwaterserviceemp">Add Water Service Center</a></li>
+                                <li><a class="dropdown-item" data-bs-target="#otherbooking" data-bs-toggle=""
+                                        href="{% url 'deletedworkshopemp' %}">Terminated Workshop</a></li>
+                                <li><a class="dropdown-item" href="{% url 'terminatedwaterserviceemp' %}">View
+                                        Terminated
+                                        Water Service Center</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="dropdown text-end p-2">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Payment
+                            </a>
+                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" data-bs-target="#fullservbooking" data-bs-toggle=""
+                                        href="">View Payments</a></li>
+                                <li><a class="dropdown-item" data-bs-target="#waterservbooking" data-bs-toggle=""
+                                        href="">View Rating</a></li>
+                                <li><a class="dropdown-item" data-bs-target="#otherbooking" data-bs-toggle=""
+                                        href="">View Feedback</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="dropdown text-end p-2">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Product
+                            </a>
+                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addproducts"
+                                        href="#addworkshop">Add Product</a></li>
+                                <li><a class="dropdown-item" data-bs-target="#otherbooking" data-bs-toggle=""
+                                        href="{% url 'viewproduct' %}">View Products</a></li>
+                                <li><a class="dropdown-item" data-bs-target="#otherbooking" data-bs-toggle=""
+                                        href="">View Not Available Product</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
+
+                <div class="dropdown text-end">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'fnlogoutemplo' %}">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <script>
+        msg = ('{{msgaddemp}}')
+        if (msg == '') {
+            console.log('hi')
+        }
+        else {
+            alert(msg)
+        }
+    </script>
+    <script>
+        msgad = ('{{msgadvertisement}}')
+        if (msgad == '') {
+            console.log('hi')
+        }
+        else {
+            alert(msgad)
+        }
+    </script>
+    <script>
+        msgg = ('{% if messages %} {% for message in messages %} {{message}} {% endfor %} {% endif %}')
+        if (msgg == '') {
+            console.log('hm')
+        }
+        else {
+            alert(msgg)
+        }
+    </script>
+    {% block content %}
+    {% endblock %}
+    <div class="container-fluid">
+        <div class="row">
+            <footer class="py-1 my-1">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item">
+                        <a href="homeemp" class="nav-link text-muted">HOME</a>
+                    </li>
+                </ul>
+                <p class="text-center ">&copy; 2021 Company, Inc</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+
+<!-- Add Workshop -->
+
+<div class="modal fade" id="addworkshop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-5 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h2 class="fw-bold mb-0">Add Workshop</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+            <div class="modal-body p-4 pt-0">
+                <form class="row g-2" action="{% url 'addworkshopemp' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="col-md-6">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-1" name="workshopname" id="floatingInput"
+                                placeholder="FIRST NAME" required />
+                            <label for="floatingInput">WORKSHOP NAME</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-4" id="floatingInput" name="workshopplace"
+                                placeholder="LAST NAME" required />
+                            <label for="floatingInput">PLACE</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-4" id="floatingInput" name="phonenumber"
+                                placeholder="PHONE NUMBER" required />
+                            <label for="floatingInput">PHONE NUMBER</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="email"
+                                name="workshopemail" />
+                            <label for="floatingInput">EMAIL</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input type="password" class="form-control rounded-4" id="floatingInput"
+                                placeholder="password" name="workshoppassword" />
+                            <label for="floatingInput">PASSWORD</label>
+                        </div>
+                    </div>
+
+                    <button class="w-100 mb-2 btn btn-lg rounded-2 btn-warning" type="submit">
+                        Add
+                    </button>
+
+                    <hr class="my-4" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Water Service Center -->
+
+<div class="modal fade" id="addwaterserviceemp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-5 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h2 class="fw-bold mb-0">Add Water Service Center</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+            <div class="modal-body p-4 pt-0">
+                <form class="row g-2" action="{% url 'addwaterserviceemp' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="col-md-6">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-1" name="watername" id="floatingInput"
+                                placeholder="SHOPE NAME" required />
+                            <label for="floatingInput">SHOPE NAME</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-4" id="floatingInput" name="waterplace"
+                                placeholder="PLACE" required />
+                            <label for="floatingInput">PLACE</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-4" id="floatingInput" name="waternumber"
+                                placeholder="PHONE NUMBER" required />
+                            <label for="floatingInput">PHONE NUMBER</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="email"
+                                name="wateremail" />
+                            <label for="floatingInput">EMAIL</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input type="password" class="form-control rounded-4" id="floatingInput"
+                                placeholder="password" name="waterpassword" />
+                            <label for="floatingInput">PASSWORD</label>
+                        </div>
+                    </div>
+
+                    <button class="w-100 mb-2 btn btn-lg rounded-2 btn-warning" type="submit">
+                        Add
+                    </button>
+
+                    <hr class="my-4" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Products -->
+
+<div class="modal fade" id="addproducts" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-5 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h2 class="fw-bold mb-0">Add Product</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <center><img class="lginimg" src="{% static 'images/logo1.png' %}" alt="" width="160px"></center>
+            <div class="modal-body p-4 pt-0">
+                <form class="row g-2" action="{% url 'addproduct' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Product photo</label>
+                        <input class="form-control" type="file" name="productphoto" id="formFile">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-1" name="productname" id=""
+                                placeholder="FIRST NAME" required />
+                            <label for="floatingInput">PRODUCT NAME</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control rounded-4" id="" name="productprice"
+                                placeholder="LAST NAME" required />
+                            <label for="floatingInput">PRICE</label>
+                        </div>
+                    </div>
+                    <select class="form-select" aria-label="Default select example" name="status">
+                        <option selected value="Available">Available</option>
+                        <option value="Out off Stock">Out off Stock</option>
+                        <option value="Limitted stocks Only">Limitted stocks Only</option>
+                    </select>
+                    <button class="w-100 mb-2 btn btn-lg rounded-2 btn-warning" type="submit">
+                        Add
+                    </button>
+                    <hr class="my-4" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

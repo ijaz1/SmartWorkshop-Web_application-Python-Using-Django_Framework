@@ -1,0 +1,62 @@
+{% extends "master3.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container my-5">
+
+    <!-- Section: Block Content -->
+    <section>
+
+        <h3 class="font-weight-bold text-center dark-grey-text mb-5">RARE PRODUCTS</h3>
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            {% for i in viewpro %}
+            <div class="col-lg-4 col-md-12 mb-4">
+
+                <!-- Card -->
+                <div class="card card-ecommerce">
+                    <div class="view overlay">
+                        <img src="/app1/media/{{i.photo}}"
+                            class="" alt="Sample image" width="300px" height="300px">
+                        <a>
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-1"><strong><a class="dark-grey-text">{{i.name}}</a></strong></h5>
+                        {% if i.stock == 'Available'%}
+                        <h4 style="color: green;">{{i.stock}}</h4>
+                        {% elif i.stock == 'Out off Stock' %}
+                        <h4 style="color: red;">{{i.stock}}</h4>
+                        {% elif i.stock == 'Limitted stocks Only' %}
+                        <h4 style="color: orange;">{{i.stock}}</h4>
+                        {% else %}
+                        {% endif %}
+                        <div class="card-footer pb-0">
+                            <div class="row mb-0">
+                                <span class="float-left"><strong>{{i.price}}<i class="fas fa-rupee-sign"></i></strong></span>
+                            </div>
+                            <a class="btn btn-warning btn-sm" href="{% url 'editpro' proid=i.id %}">update</a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'delpro' prodid=i.id %}">Delete</a>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Card -->
+
+            </div>
+            {% endfor %}
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </section>
+    <!-- Section: Block Content -->
+
+</div>
+  
+{% endblock %}
